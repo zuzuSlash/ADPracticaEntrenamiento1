@@ -50,7 +50,7 @@ public class App {
             switch (opcion) {
                 case "1":
                     System.out.println("Escribir");
-                    psInsertar = conn.prepareStatement("INSERT INTO APP.TABLE_USUARIO(COLUMN_NOMBRE, COLUMN_APELLIDO, COLUMN_MAIL, COLUMN_ACTIVO, COLUMN_USUARIO, COULUMN_CONTRASEÑA) VALUES (?,?,?,?,?,?)");
+                    psInsertar = conn.prepareStatement("INSERT INTO APP.TABLE_USUARIO(COLUMN_NOMBRE, COLUMN_APELLIDO, COLUMN_MAIL, COLUMN_ACTIVO, COLUMN_USUARIO, COLUMN_CONTRASEÑA) VALUES (?,?,?,?,?,?)");
                     System.out.print("Escribe un nombre: ");
                     psInsertar.setString(1, scanner.nextLine());
                     System.out.print("Escribe apellido: ");
@@ -63,7 +63,11 @@ public class App {
                     System.out.print("Escribe usuario: ");
                     psInsertar.setString(5, scanner.nextLine());
                     System.out.print("Escribe contraseña: ");
-                    psInsertar.setString(6, scanner.nextLine());
+                    String contra = scanner.nextLine();
+                    psInsertar.setString(6, contra);
+                    StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+                    encryptor.setAlgorithm("PBEWithMD5AndDES");
+                    encryptor.setPassword(contra);
                     psInsertar.executeUpdate();
                     System.out.println("Registro insertado con éxito.");
                     break;
