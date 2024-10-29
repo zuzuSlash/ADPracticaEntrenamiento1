@@ -39,6 +39,7 @@ public class App {
         PreparedStatement psDelete = null;
         PreparedStatement psInsertar = null;
         PreparedStatement psUpdate = null;
+        PreparedStatement psConsultar = null;
 
         Scanner scanner = new Scanner(System.in);
         String opcion = "";
@@ -73,7 +74,18 @@ public class App {
                     break;
                 case "2":
                     System.out.println("Leer");
+                    psConsultar = conn.prepareStatement("SELECT * FROM APP.TABLE_USUARIO");
+                    ResultSet rs = psConsultar.executeQuery();
+                    while (rs.next()) {
+                        System.out.println("Nombre usuario: " + rs.getString("COLUMN_NOMBRE")
+                                + "\nApellido usuario: " + rs.getString("COLUMN_APELLIDO")
+                                + "\nEmail usuario: " + rs.getString("COLUMN_MAIL")
+                                + "\nActivo: " + rs.getString("COLUMN_ACTIVO")
+                                + "\nUsuario usuario: " + rs.getString("COLUMN_USUARIO")
+                        );
 
+                    }
+                    System.out.println("Consulta realizada con exito.");
                     break;
                 case "3":
                     System.out.println("Modificar");
